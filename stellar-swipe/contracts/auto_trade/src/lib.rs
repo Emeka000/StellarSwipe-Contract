@@ -10,6 +10,7 @@ mod admin;
 mod auth;
 mod errors;
 mod history;
+mod iceberg;
 mod multi_asset;
 mod portfolio;
 mod risk;
@@ -24,6 +25,12 @@ use errors::AutoTradeError;
 use stellar_swipe_common::emergency::{CAT_TRADING, PauseState};
 
 use risk_parity::{AssetRisk, RebalanceTrade}; main
+
+pub use iceberg::{
+    create_iceberg_order, cancel_iceberg_order, get_full_order_view, get_public_order_view,
+    get_user_orders, on_sdex_fill, update_iceberg_price, AssetPair, CancellationInfo,
+    FullOrderView, IcebergOrder, OrderSide, OrderStatus, PublicOrderView,
+};
 
 /// ==========================
 /// Types
