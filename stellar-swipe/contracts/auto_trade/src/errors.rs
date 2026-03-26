@@ -66,6 +66,14 @@ feature/dca-strategy
     CircularReferral = 36,
     ReferralLimitExceeded = 37,
 
+ TWAP-Orders
+    // TWAP
+    InvalidTWAPDuration = 38,
+    TWAPOrderNotFound = 39,
+    NotTWAPOwner = 40,
+    TWAPNotActive = 41,
+
  main
  main
+main
 }
