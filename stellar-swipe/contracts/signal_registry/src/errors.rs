@@ -189,4 +189,3 @@ pub enum SignalOutcomeError {
     SignalNotClosed = 1152,
     OutcomeAlreadyRecorded = 1153,
 }
-
