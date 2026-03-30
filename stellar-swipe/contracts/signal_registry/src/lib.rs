@@ -30,8 +30,15 @@ use admin::{
     get_admin, get_admin_config, init_admin, is_trading_paused,
     require_not_paused_legacy as require_not_paused, AdminConfig,
 };
+ refactor/157-shared-constants
+use stellar_swipe_common::emergency::PauseState;
+
 use stellar_swipe_common::emergency::{PauseState, CAT_ALL, CAT_SIGNALS, CAT_STAKES, CAT_TRADING};
+ main
 use stellar_swipe_common::rate_limit::{self as rl, ActionType as RLAction, RateLimitConfig};
+use stellar_swipe_common::{
+    CAT_ALL, CAT_SIGNALS, CAT_STAKES, CAT_TRADING, SECONDS_PER_30_DAY_MONTH,
+};
 
 use categories::{RiskLevel, SignalCategory};
 use combos::{
@@ -63,7 +70,7 @@ use types::{
 };
 use versioning::{CopyRecord, SignalVersion};
 
-const MAX_EXPIRY_SECONDS: u64 = 30 * 24 * 60 * 60;
+const MAX_EXPIRY_SECONDS: u64 = SECONDS_PER_30_DAY_MONTH;
 
 #[contract]
 pub struct SignalRegistry;
