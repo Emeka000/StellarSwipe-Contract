@@ -17,8 +17,8 @@ pub enum ContractError {
     PositionLimitReached = 2,
     InsufficientBalance = 3,
     InvalidAmount = 4,
-    SlippageExceeded = 5,
-    ReentrancyDetected = 6,
-    Unauthorized = 7,
-    TradeNotFound = 8,
+    ReentrancyDetected = 5,
+    Unauthorized = 6,
+    TradeNotFound = 7,
+    SlippageExceeded = 8,
 }
