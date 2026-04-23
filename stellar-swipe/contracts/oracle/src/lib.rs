@@ -143,7 +143,7 @@ impl OracleContract {
         admin::get_pause_states(&env)
     }
 
-    /// Pause a category (admin only)
+    /// Pause a category (admin or guardian)
     pub fn pause_category(
         env: Env,
         caller: Address,
@@ -161,6 +161,21 @@ impl OracleContract {
         category: String,
     ) -> Result<(), OracleError> {
         admin::unpause_category(&env, &caller, category)
+    }
+
+    /// Set guardian address (admin only)
+    pub fn set_guardian(env: Env, caller: Address, guardian: Address) -> Result<(), OracleError> {
+        admin::set_guardian(&env, &caller, guardian)
+    }
+
+    /// Revoke guardian (admin only)
+    pub fn revoke_guardian(env: Env, caller: Address) -> Result<(), OracleError> {
+        admin::revoke_guardian(&env, &caller)
+    }
+
+    /// Get current guardian, if any.
+    pub fn get_guardian(env: Env) -> Option<Address> {
+        admin::get_guardian(&env)
     }
 
     /// Propose admin transfer (current admin only)
