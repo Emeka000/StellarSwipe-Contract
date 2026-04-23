@@ -166,8 +166,18 @@ impl TradeExecutorContract {
         triggers::set_take_profit(&env, &user, trade_id, take_profit_price);
     }
 
-    /// Check oracle price and trigger take-profit if breached. Returns `true` when triggered.
-    /// Stop-loss takes priority if both would trigger simultaneously.
+    pub fn set_take_profit_price_with_pair(
+        env: Env,
+        user: Address,
+        trade_id: u64,
+        take_profit_price: i128,
+        asset_pair: u32,
+    ) {
+        user.require_auth();
+        triggers::set_take_profit(&env, &user, trade_id, take_profit_price);
+        register_watch(&env, &user, trade_id, asset_pair);
+    }
+
     pub fn check_and_trigger_take_profit(
         env: Env,
         user: Address,
@@ -211,7 +221,12 @@ impl TradeExecutorContract {
 
         // ── Reentrancy guard ──────────────────────────────────────────────────
         let lock_key = Symbol::new(&env, EXECUTION_LOCK);
-        if env.storage().temporary().get::<_, bool>(&lock_key).unwrap_or(false) {
+        if env
+            .storage()
+            .temporary()
+            .get::<_, bool>(&lock_key)
+            .unwrap_or(false)
+        {
             return Err(ContractError::ReentrancyDetected);
         }
         env.storage().temporary().set(&lock_key, &true);

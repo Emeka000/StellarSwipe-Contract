@@ -9,7 +9,6 @@ use crate::errors::ContractError;
 
 /// Instance key: oracle contract address (`get_price(asset_pair: u32) -> i128`).
 pub const ORACLE_KEY: &str = "Oracle";
-/// Instance key: user-portfolio contract address (`close_position(user, trade_id, pnl)`).
 pub const PORTFOLIO_KEY: &str = "Portfolio";
 
 /// Register a stop-loss price for `(user, trade_id)`.
@@ -19,7 +18,6 @@ pub fn set_stop_loss(env: &Env, user: &Address, trade_id: u64, stop_loss_price: 
         .set(&(Symbol::new(env, "StopLoss"), user.clone(), trade_id), &stop_loss_price);
 }
 
-/// Return the registered stop-loss price, if any.
 pub fn get_stop_loss(env: &Env, user: &Address, trade_id: u64) -> Option<i128> {
     env.storage()
         .persistent()
@@ -33,7 +31,6 @@ pub fn set_take_profit(env: &Env, user: &Address, trade_id: u64, take_profit_pri
         .set(&(Symbol::new(env, "TakeProfit"), user.clone(), trade_id), &take_profit_price);
 }
 
-/// Return the registered take-profit price, if any.
 pub fn get_take_profit(env: &Env, user: &Address, trade_id: u64) -> Option<i128> {
     env.storage()
         .persistent()
